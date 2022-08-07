@@ -1,0 +1,32 @@
+<div id="container">
+  <!-- populated by JS-->
+</div>
+<script src="./boston.js"></script>
+<script>
+  function renderBoston(boston, container) {
+    var person = boston.data;
+    var len = boston.data.length;
+    // sort the array by descending order of salary amount and return as a variable
+    const sortedSalary = person.sort((b, a) => a[11] - b[11]);
+    // slice off the first 5 arrays, assumed to be the top 5 earners if the sort function works
+    var topSalaries = sortedSalary.slice(0,5);
+    // variable set to loop through just the top 5 earners
+    var salaryLength = topSalaries.length;
+    //create the html
+    var html = '';
+    for (let i = 0; i < salaryLength; i++) {
+      html += '<p id="data">' + topSalaries[i][8] + '\xa0\xa0\xa0\xa0\xa0' + topSalaries[i][11] + '</p>' + '<br />';
+    }
+  
+
+    // filter all who earn above $200,000
+    var over200 = person.filter(item => (item[11] > 200000));
+    var filterLength = over200.length;
+    var html1 = '';
+    for(let i=0; i<filterLength; i++) {
+      html1 += '<li id="data">' + over200[i][8] + '\xa0\xa0\xa0\xa0\xa0' + over200[i][11] + '</li>';
+    }
+    container.innerHTML = '<p> The number of people working in Boston earning over $200,000 is ' + `${over200.length}` +'.</p><ul class = "topEmployees">' + html1 + '</ul>';
+  }
+  renderBoston(boston, document.getElementById('container'));
+</script>
